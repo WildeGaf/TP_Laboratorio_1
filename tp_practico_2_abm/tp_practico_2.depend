@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1538415481 source:c:\users\gonza\desktop\tp_practico_2\funcionespersonales.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"FuncionesPersonales.h"
+
+1538375098 source:c:\users\gonza\desktop\tp_practico_2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"FuncionesPersonales.h"
+
+1538415481 c:\users\gonza\desktop\tp_practico_2\funcionespersonales.h
+
