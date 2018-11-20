@@ -19,8 +19,10 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee){
     }
     else{
         char var1[50],var3[50],var2[50],var4[50];
-        //leo los titulos
+        /*leo los titulos
         r = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",var1,var2,var3,var4);
+        Se saco la lectura en falso, ya que sino el primer empleado con indice 1, pasaria
+        a estar en el indice 0 del linked list */
         do{
             r = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",var1,var2,var3,var4);
             if(r==4){
@@ -31,8 +33,6 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee){
             else
                 break;
         }while( !feof(pFile));
-
-    fclose(pFile);
     }
     return i;
 }
@@ -46,31 +46,23 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee){
  */
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
-    int r;
+    int r,i;
     Employee* pBinario;
     if (pFile == NULL){
         printf ("Error al leer el archivo");
     }
     else{
-        pBinario = employee_new();
-        r = fread(pBinario,sizeof(Employee),1,pFile)!=0;
+        char var1[50],var3[50],var2[50],var4[50];
         do{
-            if(r==1){
+            r = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",var1,var2,var3,var4);
+            if(r==4){
+                pBinario = employee_newParametros(var1, var2, var3, var4);
+                i++;
                 ll_add(pArrayListEmployee,pBinario);
-                printf("%d %s %d %d\n", employee_getId(pBinario), employee_getNombre(pBinario), employee_getSueldo(pBinario),
-                       employee_getHorasTrabajadas(pBinario));
             }
             else
                 break;
         }while( !feof(pFile));
     }
-    return 1;
+    return i;
 }
-/*
-Employee* pBinario = employee_new();
-        while (fread(pBinario,size_t (Employee),1,pFile)!=0){
-            if (strcmp(nombre,pBinario.nombre)==0){
-                bandera = 1;
-            }
-        }
-        */
