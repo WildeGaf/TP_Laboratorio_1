@@ -516,31 +516,31 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 {
     int returnAux = -1;
     int i;
-    int flagSwap;
+    int bandera;
     Node* auxNode;
-
     if(this != NULL && ll_len(this)> 0 && pFunc != NULL && (order == 1 || order == 0))
     {
         do
         {
             i = 0;
             auxNode = getNode(this,i);
-            flagSwap = 0;
+            bandera = 0;
             for(i=0;i<ll_len(this)-1;i++)
             {
-                if(i!= 0)
-                {
+                if(i!= 0){
                     auxNode = auxNode->pNextNode;
                 }
-                if((order == 0 && auxNode->pElement != NULL && auxNode->pNextNode->pElement != NULL && (*pFunc)(auxNode->pElement,auxNode->pNextNode->pElement)== -1)||
-                   (order == 1 && auxNode->pElement != NULL && auxNode->pNextNode->pElement != NULL && (*pFunc)(auxNode->pElement,auxNode->pNextNode->pElement)== 1))
+                if((order == 0 && auxNode->pElement != NULL && auxNode->pNextNode->pElement != NULL
+                    && (*pFunc)(auxNode->pElement,auxNode->pNextNode->pElement)== -1)||
+                   (order == 1 && auxNode->pElement != NULL && auxNode->pNextNode->pElement != NULL
+                    && (*pFunc)(auxNode->pElement,auxNode->pNextNode->pElement)== 1))
                 {
-                   flagSwap = 1;
-                   ll_reOrder(this,auxNode);
+                   bandera = 1;
+                   ll_orden(this,auxNode);
                 }
             }
         }
-        while(flagSwap == 1);
+        while(bandera == 1);
         returnAux = 0;
     }
     return returnAux;
@@ -548,19 +548,19 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 
 /** \brief Algoritmo que reordena los nodos.
  * \param pList LinkedList* Puntero a la lista
- * \param pNodePrev Es el primer nodo que se va a intercambiar, el segundo lo obtenemos de su pNextNode
+ * \param pNodeActual Es el primer nodo que se va a intercambiar, el segundo lo obtenemos de su pNextNode
  * \return int Retorna (-1) Error: si el puntero a la lista es NULL o alguno de los nodos es NULL. (0) Si ok
  */
 
-int ll_reOrder(LinkedList* this, Node* pNodePrev)
+int ll_orden(LinkedList* this, Node* pNodeActual)
 {
     int returnAux = -1;
-    Node* pNodeSiguiente = pNodePrev->pNextNode;
+    Node* pNodeSiguiente = pNodeActual->pNextNode;
     void* auxElement = NULL;
-    if(this != NULL && pNodePrev != NULL && pNodeSiguiente != NULL)
+    if(this != NULL && pNodeActual != NULL && pNodeSiguiente != NULL)
     {
-        auxElement = pNodePrev->pElement;
-        pNodePrev->pElement = pNodeSiguiente->pElement;
+        auxElement = pNodeActual->pElement;
+        pNodeActual->pElement = pNodeSiguiente->pElement;
         pNodeSiguiente->pElement = auxElement;
         returnAux = 0;
     }
