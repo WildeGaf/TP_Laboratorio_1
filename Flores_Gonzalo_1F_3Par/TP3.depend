@@ -1,0 +1,58 @@
+# depslib dependency file v1.0
+1542680133 source:c:\users\gonza\desktop\tp_practico_3_linkedlist\controller.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+	"input.h"
+	"controller.h"
+
+1542418145 c:\users\gonza\desktop\tp_practico_3_linkedlist\linkedlist.h
+
+1542418145 c:\users\gonza\desktop\tp_practico_3_linkedlist\employee.h
+
+1542418145 c:\users\gonza\desktop\tp_practico_3_linkedlist\parser.h
+
+1542418145 c:\users\gonza\desktop\tp_practico_3_linkedlist\input.h
+
+1542651834 c:\users\gonza\desktop\tp_practico_3_linkedlist\controller.h
+
+1542418145 source:c:\users\gonza\desktop\tp_practico_3_linkedlist\employee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+
+1542418145 source:c:\users\gonza\desktop\tp_practico_3_linkedlist\input.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"input.h"
+
+1542680182 source:c:\users\gonza\desktop\tp_practico_3_linkedlist\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"parser.h"
+	"input.h"
+
+1542674029 source:c:\users\gonza\desktop\tp_practico_3_linkedlist\parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"input.h"
+
+1544731131 source:c:\users\alumno\desktop\tp_laboratorio_1-master\tp_practico_3_linkedlist\input.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"input.h"
+
+1544731131 c:\users\alumno\desktop\tp_laboratorio_1-master\tp_practico_3_linkedlist\input.h
+
