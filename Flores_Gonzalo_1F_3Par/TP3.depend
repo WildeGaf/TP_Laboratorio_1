@@ -56,3 +56,62 @@
 
 1544731131 c:\users\alumno\desktop\tp_laboratorio_1-master\tp_practico_3_linkedlist\input.h
 
+1544731132 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\input.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"input.h"
+
+1544731132 c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\input.h
+
+1551044692 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"parser.h"
+	"input.h"
+
+1550967343 c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\linkedlist.h
+
+1551032208 c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\controller.h
+
+1550950551 c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\employee.h
+
+1550790070 c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\parser.h
+
+1551044718 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\controller.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+	"input.h"
+	"controller.h"
+
+1550950551 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\employee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+
+1550972830 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"input.h"
+
+1550954538 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\linkedlist.c
+	<stdio.h>
+	<stdlib.h>
+	"Employee.h"
+	"LinkedList.h"
+	"Parser.h"
+	"controller.h"
+	"input.h"
+

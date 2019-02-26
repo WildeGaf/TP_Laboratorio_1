@@ -9,16 +9,16 @@
 int main()
 {
     int option;
-    int bandera = 0;
     LinkedList* listaEmpleados = ll_newLinkedList();
     LinkedList* listaFichajes = ll_newLinkedList();
+    LinkedList* listaFiltrada = ll_newLinkedList();
     option = menu();
+    int bandera = 0;
     controller_loadFromText("socios.csv",listaEmpleados);
-    controller_loadFromText("fichajes.csv",listaFichajes);
-    controller_ListEmployee(listaEmpleados);
-    controller_ListEmployee(listaEmpleados);
-
-
+    controller_loadFromTextFichaje("fichajes.csv",listaFichajes);
+    int cantF = ll_len(listaFichajes);
+    int cantE = ll_len(listaEmpleados);
+    printf("%d %d",cantF,cantE);
     do{
         switch(option)
         {
@@ -34,28 +34,41 @@ int main()
                 system("cls");
                 controller_removeEmployee(listaEmpleados);
                 break;
-           /* case 4:
-                if (bandera == 1){
+           case 4:
                 system("cls");
-                controller_editEmployee(listaEmpleados);
+                controller_ListaFecha(listaEmpleados,listaFichajes,listaFiltrada);
+                controller_sortEmployee(listaFiltrada);
+                controller_ListEmployee(listaFiltrada);
+                bandera = 1;
+                break;
+           case 5:
+                system("cls");
+                fichajeEmpleado(listaEmpleados,listaFichajes);
+                controller_ListEmployeeFichaje(listaFichajes);
+                break;
+           case 6:
+              controller_ListaFecha(listaEmpleados,listaFichajes,listaFiltrada);
+              controller_ListEmployee(listaFiltrada);
+              bandera = 1;
+                break;
+           case 7:
+                if (bandera == 1){
+                controller_saveAsText("empleadosFiltrados",listaFiltrada);
+                }
+                else {
+                    printf("Debe crear la lista primero");
                 }
                 break;
-            case 5:
-                if (bandera == 1){
-                system("cls");
-                controller_removeEmployee(listaEmpleados);
-                }
-                break;
-            case 6:
-                if (bandera == 1){
-                system("cls");
-                controller_ListEmployee(listaEmpleados);
-                system("pause");
-                system("cls");
-                }
-                break;*/
+           case 8:
+               controller_saveAsText("socios.csv",listaEmpleados);
+               controller_saveAsTextFichaje("fichajes.csv",listaFichajes);
+               break;
+           case 9:
+                printf("Ha salido del programa");
+            break;
         }
     option = menu();
-    }while(option != 10);
+    }while(option != 9);
+    printf("Ha salido del programa\n\n");
     return 0;
 }

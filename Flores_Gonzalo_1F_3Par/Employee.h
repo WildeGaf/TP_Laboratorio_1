@@ -12,7 +12,7 @@ typedef struct
 typedef struct
 {
     int idFichaje;
-    int idSocio;
+    int idEmpleado;
     int hora,minutos,dia,mes,anio;
     char ingresoEgreso[31];
 }eFichaje;
@@ -30,13 +30,17 @@ char* employee_getNombre(Employee* this);
 void employee_setApellido(Employee* this, char* apellido);
 char * employee_getApellido(Employee* this);
 
-void employee_setDni(Employee* this, int dni)
+void employee_setDni(Employee* this, int dni);
 int employee_getDni(Employee* this);
 
-void employee_setClave(Employee* this, int clave)
-int employee_getClave(Employee* this);
+void employee_setClave(Employee* this, char* clave);
+char* employee_getClave(Employee* this);
 
 Employee* employee_newParametros(char *var1, char *var2, char *var3, char *var4, char* var5);
+
+
+
+/*********************************************************************************/
 
 
 
@@ -47,12 +51,29 @@ eFichaje* eFichaje_newParametros(char *var1, char *var2, char *var3, char *var4,
 
 
 
-void eFichaje_setidFichaje(eFichaje* this, int idFichaje)
+void eFichaje_setIdFichaje(eFichaje* this, int idFichaje);
+int eFichaje_getIdFichaje(eFichaje* this);
 
+void eFichaje_setIdEmpleado(eFichaje* this, int idFichaje);
+int eFichaje_getIdEmpleado(eFichaje* this);
 
+void eFichaje_setHora(eFichaje* this, int hora);
+int eFichaje_getHora(eFichaje* this);
 
-void eFichaje_setidFichaje(eFichaje* this, int idFichaje)
+void eFichaje_setMinutos(eFichaje* this, int minutos);
+int eFichaje_getMinutos(eFichaje* this);
 
+void eFichaje_setDia(eFichaje* this, int dia);
+int eFichaje_getDia(eFichaje* this);
+
+void eFichaje_setMes(eFichaje* this, int mes);
+int eFichaje_getMes(eFichaje* this);
+
+void eFichaje_setAnio(eFichaje* this, int anio);
+int eFichaje_getAnio(eFichaje* this);
+
+void eFichaje_setIngresoEgreso(eFichaje* this, char* ingresoEgreso);
+char * eFichaje_getIngresoEgreso(eFichaje* this);
 
 
 

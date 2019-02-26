@@ -18,16 +18,15 @@ eFichaje* eFichaje_new(){
 
 Employee* employee_newParametros(char *var1, char *var2, char *var3, char *var4, char * var5)
 {
-    int idAux,dniAux, claveAux;
+    int idAux,dniAux;
     Employee* p = employee_new();
     idAux = atoi(var1);
     dniAux = atoi(var4);
-    claveAux = atoi(var5);
     employee_setId(p,idAux);
     employee_setNombre(p,var2);
     employee_setApellido(p,var3);
     employee_setDni(p,dniAux);
-    employee_setClave(p,claveAux);
+    employee_setClave(p,var5);
 
     return p;
 }
@@ -81,10 +80,10 @@ void employee_setDni(Employee* this, int dni)
         this->dni = dni;
 }
 
-void employee_setClave(Employee* this, int clave)
+void employee_setClave(Employee* this, char* clave)
 {
-    if(clave > 0)
-        this->clave = clave;
+    if(clave[0] != '\0')
+    strncpy(this->clave, clave, sizeof(this->clave));
 }
 
 
@@ -92,13 +91,13 @@ void employee_setClave(Employee* this, int clave)
 /*******************************************************/
 
 
-void eFichaje_setidFichaje(eFichaje* this, int idFichaje)
+void eFichaje_setIdFichaje(eFichaje* this, int idFichaje)
 {
     if(idFichaje > 0)
         this->idFichaje = idFichaje;
 }
 
-void eFichaje_setidFichaje(eFichaje* this, int idFichaje)
+void eFichaje_setIdEmpleado(eFichaje* this, int idEmpleado)
 {
     if(idEmpleado > 0)
         this->idEmpleado = idEmpleado;
@@ -129,7 +128,7 @@ void eFichaje_setAnio(eFichaje* this, int anio)
     if(anio > 0)
         this->anio = anio;
 }
-void eFichaje_setIngresoEgreso(Employee* this, char* ingresoEgreso)
+void eFichaje_setIngresoEgreso(eFichaje* this, char* ingresoEgreso)
 {
     if(ingresoEgreso[0] != '\0')
     strncpy(this->ingresoEgreso, ingresoEgreso, sizeof(this->ingresoEgreso));
@@ -157,8 +156,53 @@ int employee_getDni(Employee* this)
     return this->dni;
 }
 
-int employee_getClave(Employee* this)
+char* employee_getClave(Employee* this)
 {
     return this->clave;
 }
 
+
+
+/*************************************************************************/
+
+
+
+int eFichaje_getIdFichaje(eFichaje* this)
+{
+    return this->idFichaje;
+}
+
+int eFichaje_getIdEmpleado(eFichaje* this)
+{
+    return this->idEmpleado;
+}
+
+int eFichaje_getHora(eFichaje* this)
+{
+    return this->hora;
+}
+
+int eFichaje_getMinutos(eFichaje* this)
+{
+    return this->minutos;
+}
+
+int eFichaje_getDia(eFichaje* this)
+{
+    return this->dia;
+}
+
+int eFichaje_getMes(eFichaje* this)
+{
+    return this->mes;
+}
+
+int eFichaje_getAnio(eFichaje* this)
+{
+    return this->anio;
+}
+
+char * eFichaje_getIngresoEgreso(eFichaje* this)
+{
+    return this->ingresoEgreso;
+}
