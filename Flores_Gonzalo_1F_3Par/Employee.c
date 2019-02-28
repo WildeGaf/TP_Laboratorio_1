@@ -206,3 +206,28 @@ char * eFichaje_getIngresoEgreso(eFichaje* this)
 {
     return this->ingresoEgreso;
 }
+
+int employee_sortByName(void* thisA,void* thisB)
+{
+    int retorno = 0;
+    char nameA[50];
+    char nameB[50];
+    Employee* punteroA;
+    Employee* punteroB;
+    punteroA = thisA;
+    punteroB = thisB;
+    if (punteroA != NULL && punteroB != NULL){
+        strcpy(nameA,employee_getApellido(thisA));
+        strcpy(nameB,employee_getApellido(thisB));
+
+        if(strcmp(nameA,nameB)>0){
+            retorno = 1;
+        }
+        else if(strcmp(nameA,nameB)< 0){
+            retorno = -1;
+        }
+    }
+    return retorno;
+}
+
+

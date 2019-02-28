@@ -37,7 +37,7 @@ int main()
            case 4:
                 system("cls");
                 controller_ListaFecha(listaEmpleados,listaFichajes,listaFiltrada);
-                controller_sortEmployee(listaFiltrada);
+                ll_sort(listaFiltrada,employee_sortByName,1);
                 controller_ListEmployee(listaFiltrada);
                 bandera = 1;
                 break;

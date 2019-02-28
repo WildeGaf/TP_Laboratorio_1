@@ -1,3 +1,5 @@
+id,nombre,apellido,dni,clave
+100,Juan,Perez,33263109,abcd1234
 101,Pedro,Sanchez,36263109,abcd1235
 102,Candela,Soto,28123456,abcd1236
 103,Alma,Valdez,28123473,abcd1237

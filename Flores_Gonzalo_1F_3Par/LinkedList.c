@@ -518,33 +518,26 @@ LinkedList* ll_clone(LinkedList* this)
 int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 {
     int returnAux = -1;
-    int i;
-    int flagSwap;
-    Node* auxNode;
+    void* aux;
 
-    if(this != NULL && ll_len(this)> 0 && pFunc != NULL && (order == 1 || order == 0))
+    if(this != NULL && ll_len(this)> 0 && pFunc != NULL && (order == 1 || order == 1))
     {
-        do
-        {
-            i = 0;
-            auxNode = getNode(this,i);
-            flagSwap = 0;
-            for(i=0;i<ll_len(this)-1;i++)
-            {
-                if(i!= 0)
-                {
-                    auxNode = auxNode->pNextNode;
+        for (int i =0; i<ll_len(this);i++){
+            for(int j=0;j<ll_len(this);j++){
+                if (order){
+                    if (pFunc(ll_get(this,i),ll_get(this,j))>0){
+                        aux = ll_get(this,i);
+                        ll_set(this,i,ll_get(this,j));
+                        ll_set(this,j,aux);
+                    }
                 }
-                if((order == 0 && auxNode->pElement != NULL && auxNode->pNextNode->pElement != NULL && (*pFunc)(auxNode->pElement,auxNode->pNextNode->pElement)== -1)||
-                   (order == 1 && auxNode->pElement != NULL && auxNode->pNextNode->pElement != NULL && (*pFunc)(auxNode->pElement,auxNode->pNextNode->pElement)== 1))
-                {
-                   flagSwap = 1;
-                   ll_reOrder(this,auxNode);
+                if (pFunc(ll_get(this,i),ll_get(this,j))<0){
+                        aux = ll_get(this,i);
+                        ll_set(this,i,ll_get(this,j));
+                        ll_set(this,j,aux);
                 }
             }
         }
-        while(flagSwap == 1);
-        returnAux = 0;
     }
     return returnAux;
 }

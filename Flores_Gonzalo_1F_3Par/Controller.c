@@ -357,6 +357,7 @@ void fichajeEmpleado(LinkedList* listaEmpleado,LinkedList* listaFichaje){
  *
  */
 
+/*
 int controller_sortEmployee(LinkedList* listaFiltrada)
 {
     int i,j,len;
@@ -369,13 +370,29 @@ int controller_sortEmployee(LinkedList* listaFiltrada)
         for(j=i+1;j<len-1;j++){
             empSiguiente = ll_get(listaFiltrada,j);
             if (strcmp(actualEmpleado->apellido,empSiguiente->apellido)>=1){
-                auxiliar = actualEmpleado;
-                actualEmpleado = empSiguiente;
-                empSiguiente = auxiliar;
+                ll_sort(listaFiltrada,employee_sortByName,1)
             }
         }
     }
     return 1;
+}
+*/
+
+int controller_sortEmployee(LinkedList* pArrayListEmployee)
+{
+    int retorno = -1;
+
+    if(pArrayListEmployee != NULL)
+    {
+        printf("Realizando reordenamiento alfabetico\n");
+        if(!ll_sort(pArrayListEmployee,employee_sortByName,1))
+        {
+            controller_ListEmployee(pArrayListEmployee);
+            retorno = 0;
+        }
+    }
+
+    return retorno;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).

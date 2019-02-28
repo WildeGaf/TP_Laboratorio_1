@@ -37,6 +37,7 @@ void employee_setClave(Employee* this, char* clave);
 char* employee_getClave(Employee* this);
 
 Employee* employee_newParametros(char *var1, char *var2, char *var3, char *var4, char* var5);
+int employee_sortByName(void* thisA,void* thisB);
 
 
 
