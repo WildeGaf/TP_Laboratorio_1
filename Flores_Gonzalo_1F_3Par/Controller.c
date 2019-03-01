@@ -10,13 +10,13 @@
 int menu(void){
 int option;
 printf("Menu trabajo practico numero 3");
-printf("\nSeleccione 1- Para dar de alta un empleado");
-printf("\nSeleccione 2- Para modificar los datos de un empleado");
-printf("\nSeleccione 3- Para dar de baja un empleado");
-printf("\nSeleccione 4- Para imprimir la lista de empleados mediante una fecha determinada");
-printf("\nSeleccione 5- Para el fichaje del empleado");
-printf("\nSeleccione 6- Para informar empleados presentes en una fecha determinada");
-printf("\nSeleccione 7- Para guardar la lista Filtrada");
+printf("\nSeleccione 1- Para dar de alta");
+printf("\nSeleccione 2- Para modificar");
+printf("\nSeleccione 3- Para dar de baja");
+printf("\nSeleccione 4- Para imprimir la lista de color");
+printf("\nSeleccione 5- Para agregar un color");
+printf("\nSeleccione 6- Para imprimir una lista con las cantidades necesarias");
+printf("\nSeleccione 7- Para guardar las listas");
 printf("\nSeleccione 8- Para guardar cambios en las listas Empleados y Fichajes");
 printf("\nSeleccione 9- Para salir");
 printf("\nOpcion elegida: ");
@@ -40,14 +40,14 @@ int controller_loadFromText(char* path, LinkedList* pArrayListEmployee)
         printf("Error al leer el archivo");
     }
     else{
-        parser_EmployeeFromText(pArchivo,pArrayListEmployee);
+        parser_eComponente(pArchivo,pArrayListEmployee);
         printf("\n\nDatos cargados con Exito!\n\n");
     }
     fclose(pArchivo);
     return 0;
 }
 
-int controller_loadFromTextFichaje(char* path, LinkedList* pArrayListEmployee)
+int controller_loadFromTextColor(char* path, LinkedList* pArrayListEmployee)
 {
     FILE* pArchivo;
     pArchivo = fopen(path,"r+");
@@ -55,13 +55,21 @@ int controller_loadFromTextFichaje(char* path, LinkedList* pArrayListEmployee)
         printf("Error al leer el archivo");
     }
     else{
-        parser_EmployeeFromTextFichajes(pArchivo,pArrayListEmployee);
+        parser_eColor(pArchivo,pArrayListEmployee);
         printf("\n\nDatos cargados con Exito!\n\n");
     }
     fclose(pArchivo);
     return 0;
 }
 
+void controller_esBase(char* nombre,int base){
+    if (base == 1){
+        strcpy(nombre,"Base");
+    }
+    else if(base == 0){
+        strcpy(nombre,"Pigmento");
+    }
+}
 
 
 /** \brief Alta de empleados
@@ -72,36 +80,30 @@ int controller_loadFromTextFichaje(char* path, LinkedList* pArrayListEmployee)
  *
  */
 
-int controller_addEmployee(LinkedList* pArrayListEmployee)
+int controller_addComponente(LinkedList* pArrayListEmployee)
 {
-   Employee* pB;
-   Employee* lastPoint;
+   eComponente* pB;
+   eComponente* lastPoint;
    int resp,cant;
-   char var1[50],var3[50],var2[50],var4[50],var5[50];
+   char var1[50],var3[50],var2[50];
    do{
         cant = ll_len(pArrayListEmployee);
         lastPoint = ll_get(pArrayListEmployee,cant-1);
-        cant = lastPoint->id;
+        cant = lastPoint->idComponente;
         sprintf(var1,"%d",cant+1);
-        printf("\nIngrese el nombre del empleado: ");
+        printf("\nIngrese el nombre del componente: ");
         fflush(stdin);
         getString(var2);
-        printf("\nIngrese el apellido del empleado: ");
+        printf("\nIndique 1- Base o 0-Pigmento ");
         fflush(stdin);
         getString(var3);
-        printf("\nIngrese el dni: ");
-        fflush(stdin);
-        getString(var4);
-        printf("\nIngrese la clave: ");
-        fflush(stdin);
-        getString(var5);
-        pB = employee_newParametros(var1,var2,var3,var4,var5);
+        pB = eComponente_newParametros(var1,var2,var3);
         ll_add(pArrayListEmployee,pB);
         printf("\nPara continuar ingresando datos ingrese 1 o 0 para terminar: ");
         getInt(&resp);
         system("cls");
         }while (resp==1);
-    controller_saveAsText("probando.csv",pArrayListEmployee);
+   // controller_saveAsText("componentes.csv",pArrayListEmployee);
     return 1;
 }
 
@@ -112,28 +114,29 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
  * \return int
  *
  */
-int controller_editEmployee(LinkedList* pArrayListEmployee)
+
+int controller_editComponente(LinkedList* pArrayListEmployee)
 {
     int id,resp,i,cant,bandera=0;
-    char auxNombre[51],auxApellido[51],auxClave[51];
-    int auxDni,auxId;
-    Employee* puntero;
-    Employee* ultimo;
-    Employee* primero;
+    char auxNombre[51],auxApellido[51];
+    int auxId;
+    eComponente* puntero;
+    eComponente* ultimo;
+    eComponente* primero;
     printf ("\nDesea imprimir la lista? Ingrese 1 para imprimir: ");
         getInt(&resp);
         if (resp == 1){
-            controller_ListEmployee(pArrayListEmployee);
+            controller_ListComponente(pArrayListEmployee);
         }
-    printf ("\nIngrese el id del empleado a modificar: ");
+    printf ("\nIngrese el id del componente a modificar: ");
     getInt(&id);
     cant = ll_len(pArrayListEmployee);
     ultimo = ll_get(pArrayListEmployee,cant-1);
     primero = ll_get(pArrayListEmployee,0);
-    if ((pArrayListEmployee != NULL && id >= primero->id) && (id <= ultimo->id)){
+    if ((pArrayListEmployee != NULL && id >= primero->idComponente) && (id <= ultimo->idComponente)){
         for (i=0;i<=cant;i++){
            puntero = ll_get(pArrayListEmployee,i);
-           auxId = puntero->id;
+           auxId = puntero->idComponente;
             if (auxId == id){
             bandera = 1;
                 break;
@@ -141,7 +144,7 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
         }
     }
         if (bandera == 1){
-            printf("1-Para modificar el Nombre\t 2-Para el Apellido\t 3-Para el Dni \t 4- Para la Clave \t 5- Para todos");
+            printf("1-Para modificar el Nombre\t 2-Para Base o Pigmento  \t 3- Para todos");
             getInt(&resp);
             switch(resp){
                 case 1:
@@ -150,33 +153,18 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
                     strcpy(puntero->nombre,auxNombre);
                     break;
                 case 2:
-                    printf("\nIngrese el apellido a asignar");
+                    printf("\nIngrese 1-Base o 0-Pigmento");
                     getString(auxApellido);
-                    strcpy(puntero->apellido,auxApellido);
+                    strcpy(puntero->base,auxApellido);
                     break;
                 case 3:
-                    printf("\nIngrese el dni a asignar");
-                    getInt(&auxDni);
-                    puntero->dni = auxDni;
-                    break;
-                case 4:
-                    printf("\nIngrese la clave a asignar");
-                    getString(auxClave);
-                    strcpy(puntero->clave,auxClave);
-                case 5:
                     printf("\nIngrese el nombre a asignar");
                     getString(auxNombre);
-                    strcpy(puntero->apellido,auxApellido);
-                    printf("\nIngrese el apellido a asignar");
+                    strcpy(puntero->nombre,auxNombre);
+                    printf("\nIngrese Base o Pigmento");
                     getString(auxApellido);
-                    strcpy(puntero->apellido,auxApellido);
-                    printf("\nIngrese el dni a asignar");
-                    getInt(&auxDni);
-                    puntero->dni = auxDni;
-                    printf("\nIngrese la clave a asignar");
-                    getString(auxClave);
-                    strcpy(puntero->clave,auxClave);
-                    controller_saveAsText("probando.csv",pArrayListEmployee);
+                    strcpy(puntero->base,auxApellido);
+                    //controller_saveAsText("componentes.txt",pArrayListEmployee);
                     break;
                 }
             }else{
@@ -193,32 +181,32 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
  * \return int
  *
  */
-int controller_removeEmployee(LinkedList* pArrayListEmployee)
+int controller_removeComponente(LinkedList* pArrayListEmployee)
 {
     int cant,id,resp,i,auxId;
-    Employee* puntero;
-    Employee* ultimo;
-    Employee* primero;
+    eComponente* puntero;
+    eComponente* ultimo;
+    eComponente* primero;
     printf ("\nDesea imprimir la lista? Ingrese 1 para imprimir: ");
         getInt(&resp);
         if (resp == 1){
-            controller_ListEmployee(pArrayListEmployee);
+            controller_ListComponente(pArrayListEmployee);
         }
     printf ("\nIngrese el id del empleado a borrar: ");
     getInt(&id);
     cant = ll_len(pArrayListEmployee);
     ultimo = ll_get(pArrayListEmployee,cant-1);
     primero = ll_get(pArrayListEmployee,0);
-    if ((pArrayListEmployee != NULL && id >= primero->id) && (id <= ultimo->id)){
+    if ((pArrayListEmployee != NULL && id >= primero->idComponente) && (id <= ultimo->idComponente)){
         for (i=0;i<=cant;i++){
            puntero = ll_get(pArrayListEmployee,i);
-           auxId = puntero->id;
+           auxId = puntero->idComponente;
             if (auxId == id){
             ll_remove(pArrayListEmployee,i);
             printf ("\nSe elimino correctamente\n");
             system("pause");
             system("cls");
-            controller_saveAsText("probando.csv",pArrayListEmployee);
+            //controller_saveAsText("probando.csv",pArrayListEmployee);
             break;
             }
         }
@@ -228,6 +216,7 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
     return 1;
 }
 
+
 /** \brief Listar empleados
  *
  * \param path char*
@@ -235,117 +224,105 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
  * \return int
  *
  */
-int controller_ListEmployee(LinkedList* pArrayListEmployee)
+int controller_ListComponente(LinkedList* pArrayListEmployee)
 {
     int i,cant;
     cant = ll_len(pArrayListEmployee);
-    Employee* lista;
+    eComponente* lista;
     for (i=0;i<cant;i++){
-        lista = (Employee*)ll_get(pArrayListEmployee,i);
-        printf("%d\t %s\t %s\t %d\t %s\n",employee_getId(lista),employee_getNombre(lista),
-                                     employee_getApellido(lista),
-                                     employee_getDni(lista),
-                                     employee_getClave(lista));
+        lista = (eComponente*)ll_get(pArrayListEmployee,i);
+        printf("%d\t %s\t %s\n",eComponente_getIdComponente(lista),
+                                eComponente_getNombre(lista),
+                                eComponente_getBase(lista));
     }
     return 1;
 }
 
 
-int controller_ListEmployeeFichaje(LinkedList* listaFichaje)
+int controller_ListColor(LinkedList* listaFichaje)
 {
     int i,cant;
     cant = ll_len(listaFichaje);
-    eFichaje* lista;
+    eColor* lista;
     for (i=0;i<cant;i++){
-        lista = (eFichaje*)ll_get(listaFichaje,i);
-        printf("%d\t %d\t %d\t %d\t %d\t %d\t %d\t %s\n",eFichaje_getIdFichaje(lista),eFichaje_getIdEmpleado(lista),
-                                     eFichaje_getHora(lista),
-                                     eFichaje_getMinutos(lista),
-                                     eFichaje_getDia(lista),
-                                     eFichaje_getMes(lista),
-                                     eFichaje_getAnio(lista),
-                                     eFichaje_getIngresoEgreso(lista));
+        lista = (eColor*)ll_get(listaFichaje,i);
+        printf("%d\t %s\t %d\t %d\n",eColor_getIdColor(lista),
+                                     eColor_getNombre(lista),
+                                     eColor_getIdComponente(lista),
+                                     eColor_getCantidad(lista));
     }
     return 1;
 }
 
 
-int controller_ListaFecha(LinkedList* listaEmpleados,LinkedList* listaFichajes,LinkedList* listaFiltrada){
-    int dia,mes,anio,cantF,cantE,i,j,contador =0, total = 0;
-    printf ("Ingrese el dia");
-    getInt(&dia);
-    printf ("Ingrese el mes");
-    getInt(&mes);
-    printf ("Ingrese el anio");
-    getInt(&anio);
-    eFichaje* punteroF;
-    Employee* punteroE;
-    cantF = ll_len(listaFichajes);
-    cantE = ll_len(listaEmpleados);
-    for (i=0;i<cantF-1;i++){
-        punteroF = ll_get(listaFichajes,i);
-        if ((punteroF->dia == dia) &&
-            (punteroF->mes == mes) &&
-            (punteroF->anio == anio)&&
-            (strcmp(punteroF->ingresoEgreso,"IN"))==0){
-            for (j=0;j<cantE-1;j++){
-                punteroE = ll_get(listaEmpleados,j);
-                    if(punteroE->id == punteroF->idEmpleado){
-                        ll_add(listaFiltrada,punteroE);
-                        contador++;
-                    }
-            }
+int controller_ListaComponentesBase(LinkedList* listaComponentes,LinkedList* listaFiltrada){
+    int cant,i, total = 0;
+    eComponente* punteroC;
+    cant = ll_len(listaComponentes);
+    for (i=0;i<cant-1;i++){
+        punteroC = ll_get(listaComponentes,i);
+        if (strcmp(punteroC->base,"Base")==0){
+            ll_add(listaFiltrada,punteroC);
         }
-   }
+    }
     total = ll_len(listaFiltrada);
     printf("%d",total);
-    printf ("\n\nSe encontaron %d empleados\n\n",total);
+    printf ("\n\nSe encontaron %d componentes\n\n",total);
 return 0;
 }
 
+void NuevoColor(LinkedList* listaColor,LinkedList* listaComponentes){
+    eComponente* punteroComp;
+    eColor* punteroColor;
+    char idColorAux[51],componenteAux[51],colorAux[50],cantidadAux[50];
+    int i,idComponenteAux,cantComp,cantColor,resp,base;
+    printf("Ingrese el nombre del Color");
+    getString(colorAux);
+    cantColor = ll_len(listaColor);
+    cantComp = ll_len(listaComponentes);
+    for (i=0;i<cantColor-1;i++){
+        punteroColor = ll_get(listaColor,i);
+        if (strcmp (punteroColor->nombre,colorAux)==0){
+            base = controller_CheckBase(listaColor,listaComponentes,punteroColor->idColor);//Verifica si ya existe un comp base
+            sprintf(idColorAux,"%d",punteroColor->idColor);
 
-void fichajeEmpleado(LinkedList* listaEmpleado,LinkedList* listaFichaje){
-    Employee* punteroE;
-    eFichaje* punteroF;
-    char idEmpleado[51],horaAux[51],minutosAux[51],diaAux[51],mesAux[51],
-    ingresoEgresoAux[51],anioAux[51],claveAux[51],idAux[51];
-    int i,cantE,cantF,cant,idEmpleadoAux,bandera = 0;
-    printf("Ingrese el ID del empleado");
-    getInt(&idEmpleadoAux);
-    printf("Ingrese su Clave");
-    getString(claveAux);
-    cantE = ll_len(listaEmpleado);
-    cantF = ll_len(listaFichaje);
-    for (i=0;i<cantE;i++){
-            punteroE = ll_get(listaEmpleado,i);
-        if ((punteroE->id == idEmpleadoAux) && (strcmp(punteroE->clave,claveAux))==0){
-            punteroF = ll_get(listaFichaje,cantF-1);
-            cant = (punteroF->idFichaje + 1);
-            sprintf(idEmpleado,"%d",idEmpleadoAux);
-            sprintf(idAux,"%d",cant);
-            printf("Indique la hora");
-            getString(horaAux);
-            printf("Indique los minutos ");
-            getString(minutosAux);
-            printf("Indique el dia");
-            getString(diaAux);
-            printf("Indique el mes");
-            getString(mesAux);
-            printf("Indique el anio");
-            getString(anioAux);
-            printf("indique IN para ingreso o OUT para egreso");
-            getString(ingresoEgresoAux);
-            punteroF = eFichaje_newParametros(idAux,idEmpleado,horaAux,minutosAux,diaAux,mesAux,anioAux,ingresoEgresoAux);
-            ll_add(listaFichaje,punteroF);
-            bandera = 1;
-            break;
+        }else{
+            sprintf(idColorAux,"%d",cantColor+1);
         }
     }
-    if (bandera != 1){
-        printf("Error en el usuario o clave");
-    }
+    do{
+        printf("Desea imprimir la lista de componentes 1-Si 0-No");
+        getInt(&resp);
+        if (resp == 1){
+            controller_ListComponente(listaComponentes);
+        }
+        printf("Ingrese el id del Componente");
+        getInt(&idComponenteAux);
+        for (i=0;i<cantComp-1;i++){
+            punteroComp = ll_get(listaComponentes,i);
+            if (punteroComp->idComponente == idComponenteAux){
+                if (strcmp(punteroComp->base,"Pigmento")==0){
+                    sprintf(componenteAux,"%d",punteroComp->idComponente);
+                    resp = 0;
+                }
+                else{
+                    if (base == 1){
+                        printf("Ya se encuentra un componente Base");
+                    }
+                    else{
+                        sprintf(componenteAux,"%d",punteroComp->idComponente);
+                        resp =0;
+                    }
+                }
+            }
+        }
+        }while(resp==1);
+        printf("Ingrese la cantidad");
+        getString(cantidadAux);
+    punteroColor = eColor_newParametros(idColorAux,colorAux,componenteAux,cantidadAux);
+    ll_add(listaColor,punteroColor);
     system("cls");
-    controller_ListEmployeeFichaje(listaFichaje);
+    controller_ListColor(listaColor);
     system("pause");
 }
 
@@ -357,43 +334,50 @@ void fichajeEmpleado(LinkedList* listaEmpleado,LinkedList* listaFichaje){
  *
  */
 
-/*
-int controller_sortEmployee(LinkedList* listaFiltrada)
-{
-    int i,j,len;
-    Employee* actualEmpleado;
-    Employee* empSiguiente;
-    Employee* auxiliar;
-    len = ll_len(listaFiltrada);
-    for (i=0;i<len-1;i++){
-        actualEmpleado = ll_get(listaFiltrada,i);
-        for(j=i+1;j<len-1;j++){
-            empSiguiente = ll_get(listaFiltrada,j);
-            if (strcmp(actualEmpleado->apellido,empSiguiente->apellido)>=1){
-                ll_sort(listaFiltrada,employee_sortByName,1)
+void ComponentesColor(LinkedList* listaColor){
+    int cantColor,idColorAux,resp,litros,i;
+    eColor* punteroColor;
+    cantColor = ll_len(listaColor);
+    printf("\nDesea imprimir la lista? 1-Si 0-No\n");
+    getInt(&resp);
+    if (resp == 1){
+        controller_ListColor(listaColor);
+    }
+        printf("\nIngrese el id del color\n");
+        getInt(&idColorAux);
+        printf("\nIngrese la cantidad de litros");
+        getInt(&litros);
+        for (i=0;i<cantColor;i++){
+            punteroColor = ll_get(listaColor,i);
+            if (punteroColor->idColor == idColorAux){
+                printf ("\n\nID componente : %d Cantidad necesaria : %d\n\n",punteroColor->idComponente,punteroColor->cantidad*litros);
+            }
+        }
+}
+
+int controller_CheckBase(LinkedList* listaColor,LinkedList* listaComponentes,int idColor){
+    int cantComp,cantColor,i,j,base=0;
+    eColor* punteroColor;
+    eComponente* punteroComp;
+    cantColor = ll_len(listaColor);
+    cantComp= ll_len(listaComponentes);
+    for (i=0;i<cantColor-1;i++){
+        punteroColor = ll_get(listaColor,i);
+        if (idColor == punteroColor->idColor){
+            for(j=0;j<cantComp-1;j++){
+                punteroComp = ll_get(listaComponentes,j);
+                if (punteroComp->idComponente == punteroColor->idComponente){
+                    if(strcmp(punteroComp->base,"Base")==0){
+                       base = 1;
+                       }
+                }
             }
         }
     }
-    return 1;
+return base;
+
 }
-*/
 
-int controller_sortEmployee(LinkedList* pArrayListEmployee)
-{
-    int retorno = -1;
-
-    if(pArrayListEmployee != NULL)
-    {
-        printf("Realizando reordenamiento alfabetico\n");
-        if(!ll_sort(pArrayListEmployee,employee_sortByName,1))
-        {
-            controller_ListEmployee(pArrayListEmployee);
-            retorno = 0;
-        }
-    }
-
-    return retorno;
-}
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
  *
@@ -403,12 +387,12 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
  *
  */
 
-int controller_saveAsText(char* path , LinkedList* lista)
+int controller_saveAsTextComp(char* path , LinkedList* lista)
 {
     FILE* pArchivo;
     int len,i;
     int total= 0;
-    Employee* auxEmpleado;
+    eComponente* listaComponentes;
     len = ll_len(lista);
     pArchivo = fopen(path,"r+");
     if (pArchivo == NULL){
@@ -416,10 +400,10 @@ int controller_saveAsText(char* path , LinkedList* lista)
     }
     if (len>0){
         for (i=0;i<len;i++){
-        auxEmpleado = ll_get(lista,i);
-        fprintf(pArchivo,"%d,%s,%s,%d,%s\n",employee_getId(auxEmpleado),employee_getNombre(auxEmpleado),
-                                            employee_getApellido(auxEmpleado),employee_getDni(auxEmpleado),
-                                            employee_getClave(auxEmpleado));
+            listaComponentes = ll_get(lista,i);
+            fprintf(pArchivo,"%d,%s,%s\n",eComponente_getIdComponente(listaComponentes),
+                                            eComponente_getNombre(listaComponentes),
+                                            eComponente_getBase(listaComponentes));
         total++;
         }
     printf("\nSe escribieron %d caracteres\n\n", total);
@@ -429,12 +413,12 @@ int controller_saveAsText(char* path , LinkedList* lista)
 }
 
 
-int controller_saveAsTextFichaje(char* path , LinkedList* lista)
+int controller_saveAsTextColor(char* path , LinkedList* lista)
 {
     FILE* pArchivo;
     int len,i;
     int total= 0;
-    eFichaje* auxFichaje;
+    eColor* listaColor;
     len = ll_len(lista);
     pArchivo = fopen(path,"r+");
     if (pArchivo == NULL){
@@ -442,12 +426,11 @@ int controller_saveAsTextFichaje(char* path , LinkedList* lista)
     }
     if (len>0){
         for (i=0;i<len-1;i++){
-        auxFichaje = ll_get(lista,i);
-        fprintf(pArchivo,"%d,%d,%d,%d,%d,%d,%d,%s\n",eFichaje_getIdFichaje(auxFichaje),eFichaje_getIdEmpleado(auxFichaje),
-                                                    eFichaje_getHora(auxFichaje),eFichaje_getMinutos(auxFichaje),
-                                                    eFichaje_getDia(auxFichaje),eFichaje_getMes(auxFichaje),
-                                                    eFichaje_getAnio(auxFichaje),eFichaje_getIngresoEgreso(auxFichaje));
-
+        listaColor = ll_get(lista,i);
+        fprintf(pArchivo,"%d,%s,%d,%d\n",eColor_getIdColor(listaColor),
+                                        eColor_getNombre(listaColor),
+                                        eColor_getIdComponente(listaColor),
+                                        eColor_getCantidad(listaColor));
         total++;
         }
     printf("\nSe escribieron %d caracteres\n\n", total);
@@ -455,3 +438,5 @@ int controller_saveAsTextFichaje(char* path , LinkedList* lista)
     fclose(pArchivo);
     return 1;
 }
+
+

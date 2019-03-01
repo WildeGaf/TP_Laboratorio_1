@@ -1,0 +1,5 @@
+id_color;nombre;id_componente;cantidad
+1;amarillo;1;4000
+1;amarillo;6;20
+1;amarillo;4;5
+

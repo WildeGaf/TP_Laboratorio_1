@@ -9,66 +9,56 @@
 int main()
 {
     int option;
-    LinkedList* listaEmpleados = ll_newLinkedList();
-    LinkedList* listaFichajes = ll_newLinkedList();
+    LinkedList* listaComponentes = ll_newLinkedList();
+    LinkedList* listaColor = ll_newLinkedList();
     LinkedList* listaFiltrada = ll_newLinkedList();
     option = menu();
-    int bandera = 0;
-    controller_loadFromText("socios.csv",listaEmpleados);
-    controller_loadFromTextFichaje("fichajes.csv",listaFichajes);
-    int cantF = ll_len(listaFichajes);
-    int cantE = ll_len(listaEmpleados);
+    controller_loadFromText("componentes.txt",listaComponentes);
+    controller_loadFromTextColor("color.txt",listaColor);
+    controller_ListColor(listaColor);
+    controller_ListComponente(listaComponentes);
+    int cantF = ll_len(listaColor);
+    int cantE = ll_len(listaComponentes);
     printf("%d %d",cantF,cantE);
-    do{
+   do{
         switch(option)
         {
             case 1:
                 system("cls");
-                controller_addEmployee(listaEmpleados);
+                controller_addComponente(listaComponentes);
+                controller_ListComponente(listaComponentes);
                 break;
             case 2:
                 system("cls");
-                controller_editEmployee(listaEmpleados);
+                controller_editComponente(listaComponentes);
+                controller_ListComponente(listaComponentes);
                 break;
             case 3:
                 system("cls");
-                controller_removeEmployee(listaEmpleados);
+                controller_removeComponente(listaComponentes);
+                controller_ListComponente(listaComponentes);
                 break;
-           case 4:
+            case 4:
                 system("cls");
-                controller_ListaFecha(listaEmpleados,listaFichajes,listaFiltrada);
+                controller_ListaComponentesBase(listaComponentes,listaFiltrada);
                 ll_sort(listaFiltrada,employee_sortByName,1);
-                controller_ListEmployee(listaFiltrada);
-                bandera = 1;
+                controller_ListComponente(listaFiltrada);
                 break;
            case 5:
                 system("cls");
-                fichajeEmpleado(listaEmpleados,listaFichajes);
-                controller_ListEmployeeFichaje(listaFichajes);
+                NuevoColor(listaColor,listaComponentes);
+                controller_ListColor(listaColor);
                 break;
            case 6:
-              controller_ListaFecha(listaEmpleados,listaFichajes,listaFiltrada);
-              controller_ListEmployee(listaFiltrada);
-              bandera = 1;
+              ComponentesColor(listaColor);
                 break;
            case 7:
-                if (bandera == 1){
-                controller_saveAsText("empleadosFiltrados",listaFiltrada);
-                }
-                else {
-                    printf("Debe crear la lista primero");
-                }
+               controller_saveAsTextColor("color.txt",listaColor);
+               controller_saveAsTextComp("componentes.txt",listaComponentes);
                 break;
-           case 8:
-               controller_saveAsText("socios.csv",listaEmpleados);
-               controller_saveAsTextFichaje("fichajes.csv",listaFichajes);
-               break;
-           case 9:
-                printf("Ha salido del programa");
-            break;
         }
     option = menu();
-    }while(option != 9);
+    }while(option != 8);
     printf("Ha salido del programa\n\n");
     return 0;
 }

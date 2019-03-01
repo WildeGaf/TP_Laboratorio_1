@@ -64,7 +64,7 @@
 
 1544731132 c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\input.h
 
-1551370004 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\main.c
+1551471530 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\main.c
 	<stdio.h>
 	<stdlib.h>
 	"LinkedList.h"
@@ -73,15 +73,15 @@
 	"parser.h"
 	"input.h"
 
-1550967343 c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\linkedlist.h
+1551471559 c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\linkedlist.h
 
-1551368882 c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\controller.h
+1551471658 c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\controller.h
 
-1551304191 c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\employee.h
+1551397180 c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\employee.h
 
-1550790070 c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\parser.h
+1551393416 c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\parser.h
 
-1551368882 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\controller.c
+1551471476 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\controller.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -91,7 +91,7 @@
 	"input.h"
 	"controller.h"
 
-1551370370 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\employee.c
+1551450782 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\employee.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -99,19 +99,78 @@
 	"Controller.h"
 	"Employee.h"
 
-1550972830 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\parser.c
+1551394908 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\parser.c
 	<stdio.h>
 	<stdlib.h>
 	"LinkedList.h"
 	"Employee.h"
 	"input.h"
 
-1551370488 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\linkedlist.c
+1551451011 source:c:\users\tavo-maca\desktop\flores_gonzalo_1f_3par\linkedlist.c
 	<stdio.h>
 	<stdlib.h>
 	"Employee.h"
 	"LinkedList.h"
 	"Parser.h"
 	"controller.h"
+	"input.h"
+
+1551400618 source:c:\users\alumno\desktop\flores_gonzalo_1f_3par\controller.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+	"input.h"
+	"controller.h"
+
+1551399695 c:\users\alumno\desktop\flores_gonzalo_1f_3par\linkedlist.h
+
+1551397179 c:\users\alumno\desktop\flores_gonzalo_1f_3par\employee.h
+
+1551393414 c:\users\alumno\desktop\flores_gonzalo_1f_3par\parser.h
+
+1544731132 c:\users\alumno\desktop\flores_gonzalo_1f_3par\input.h
+
+1551399234 c:\users\alumno\desktop\flores_gonzalo_1f_3par\controller.h
+
+1551397644 source:c:\users\alumno\desktop\flores_gonzalo_1f_3par\employee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+
+1544731132 source:c:\users\alumno\desktop\flores_gonzalo_1f_3par\input.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"input.h"
+
+1551399695 source:c:\users\alumno\desktop\flores_gonzalo_1f_3par\linkedlist.c
+	<stdio.h>
+	<stdlib.h>
+	"Employee.h"
+	"LinkedList.h"
+	"Parser.h"
+	"controller.h"
+	"input.h"
+
+1551399377 source:c:\users\alumno\desktop\flores_gonzalo_1f_3par\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"parser.h"
+	"input.h"
+
+1551394906 source:c:\users\alumno\desktop\flores_gonzalo_1f_3par\parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
 	"input.h"
 

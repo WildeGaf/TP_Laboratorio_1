@@ -5,229 +5,153 @@
 #include "Controller.h"
 #include "Employee.h"
 
-Employee* employee_new(){
-    Employee* persona = malloc(sizeof(Employee));
+eComponente* componente_new(){
+    eComponente* persona = malloc(sizeof(eComponente));
     return persona;
 }
 
-eFichaje* eFichaje_new(){
-    eFichaje* persona = malloc(sizeof(Employee));
+eColor* eColor_new(){
+    eColor* persona = malloc(sizeof(eColor));
     return persona;
 }
 
 
-Employee* employee_newParametros(char *var1, char *var2, char *var3, char *var4, char * var5)
+eComponente* eComponente_newParametros(char *var1, char *var2, char *var3)
 {
-    int idAux,dniAux;
-    Employee* p = employee_new();
+    int idAux,baseAux;
+    eComponente* p = componente_new();
     idAux = atoi(var1);
-    dniAux = atoi(var4);
-    employee_setId(p,idAux);
-    employee_setNombre(p,var2);
-    employee_setApellido(p,var3);
-    employee_setDni(p,dniAux);
-    employee_setClave(p,var5);
-
+    baseAux = atoi(var3);
+    controller_esBase(var3,baseAux);
+    eComponente_setIdComponente(p,idAux);
+    eComponente_setNombre(p,var2);
+    eComponente_setBase(p,var3);
     return p;
 }
 
-eFichaje* eFichaje_newParametros(char *var1, char *var2, char *var3, char *var4, char * var5,
-                                 char * var6,char * var7,char * var8)
+eColor* eColor_newParametros(char *var1, char *var2, char *var3, char *var4)
 {
-    int idFichajeAux,idEmpleadoAux,horaAux,minutosAux,diaAux,mesAux,anioAux;
-    eFichaje* p = eFichaje_new();
-    idFichajeAux = atoi(var1);
-    idEmpleadoAux = atoi(var2);
-    horaAux = atoi(var3);
-    minutosAux = atoi(var4);
-    diaAux = atoi(var5);
-    mesAux = atoi(var6);
-    anioAux = atoi(var7);
-    eFichaje_setIdFichaje(p,idFichajeAux);
-    eFichaje_setIdEmpleado(p,idEmpleadoAux);
-    eFichaje_setHora(p,horaAux);
-    eFichaje_setMinutos(p,minutosAux);
-    eFichaje_setDia(p,diaAux);
-    eFichaje_setMes(p,mesAux);
-    eFichaje_setAnio(p,anioAux);
-    eFichaje_setIngresoEgreso(p,var8);
+    int idColorAux,idComponenteAux,cantidadAux;
+    eComponente* p = eColor_new();
+    idColorAux = atoi(var1);
+    idComponenteAux = atoi(var3);
+    cantidadAux = atoi(var4);
+    eColor_setIdColor(p,idColorAux);
+    eColor_setIdComponente(p,idComponenteAux);
+    eColor_setNombre(p,var2);
+    eColor_setCantidad(p,cantidadAux);
     return p;
 }
 
 /********FUNCIONES SET***********/
 
-void employee_setId(Employee* this, int id)
+void eComponente_setIdComponente(eComponente* this, int idComponente)
 {
-    if(id > 0)
-        this->id = id;
+    if(idComponente > 0)
+        this->idComponente = idComponente;
 }
 
-void employee_setNombre(Employee* this, char* nombre)
+void eComponente_setNombre(eComponente* this, char* nombre)
 {
     if(nombre[0] != '\0')
     strncpy(this->nombre, nombre, sizeof(this->nombre));
 }
 
-void employee_setApellido(Employee* this, char* apellido)
+void eComponente_setBase(eComponente* this, char* base)
 {
-    if(apellido[0] != '\0')
-    strncpy(this->apellido, apellido, sizeof(this->apellido));
+    if(base[0] != '\0')
+    strncpy(this->base, base, sizeof(this->base));
 }
-
-void employee_setDni(Employee* this, int dni)
-{
-    if(dni > 0)
-        this->dni = dni;
-}
-
-void employee_setClave(Employee* this, char* clave)
-{
-    if(clave[0] != '\0')
-    strncpy(this->clave, clave, sizeof(this->clave));
-}
-
 
 
 /*******************************************************/
 
 
-void eFichaje_setIdFichaje(eFichaje* this, int idFichaje)
+void eColor_setIdColor(eColor* this, int idColor)
 {
-    if(idFichaje > 0)
-        this->idFichaje = idFichaje;
+    if(idColor > 0)
+        this->idColor = idColor;
 }
 
-void eFichaje_setIdEmpleado(eFichaje* this, int idEmpleado)
+void eColor_setCantidad(eColor* this, int cantidad)
 {
-    if(idEmpleado > 0)
-        this->idEmpleado = idEmpleado;
+    if(cantidad > 0)
+        this->cantidad = cantidad;
 }
 
-void eFichaje_setHora(eFichaje* this, int hora)
+void eColor_setIdComponente(eColor* this, int idComponente)
 {
-    if(hora > 0)
-        this->hora = hora;
+    if(idComponente > 0)
+        this->idComponente = idComponente;
 }
-void eFichaje_setMinutos(eFichaje* this, int minutos)
+
+void eColor_setNombre(eColor* this, char* nombre)
 {
-    if(minutos > 0)
-        this->minutos = minutos;
-}
-void eFichaje_setDia(eFichaje* this, int dia)
-{
-    if(dia > 0)
-        this->dia = dia;
-}
-void eFichaje_setMes(eFichaje* this, int mes)
-{
-    if(mes > 0)
-        this->mes = mes;
-}
-void eFichaje_setAnio(eFichaje* this, int anio)
-{
-    if(anio > 0)
-        this->anio = anio;
-}
-void eFichaje_setIngresoEgreso(eFichaje* this, char* ingresoEgreso)
-{
-    if(ingresoEgreso[0] != '\0')
-    strncpy(this->ingresoEgreso, ingresoEgreso, sizeof(this->ingresoEgreso));
+    if(nombre[0] != '\0')
+    strncpy(this->nombre, nombre, sizeof(this->nombre));
 }
 
 /*********FUNCIONES GET**********/
 
-int employee_getId(Employee* this)
+int eComponente_getIdComponente(eComponente* this)
 {
-    return this->id;
+    return this->idComponente;
 }
 
-char * employee_getNombre(Employee* this)
+char * eComponente_getNombre(eComponente* this)
 {
     return this->nombre;
 }
 
-char * employee_getApellido(Employee* this)
+char * eComponente_getBase(eComponente* this)
 {
-    return this->apellido;
+    return this->base;
 }
-
-int employee_getDni(Employee* this)
-{
-    return this->dni;
-}
-
-char* employee_getClave(Employee* this)
-{
-    return this->clave;
-}
-
-
 
 /*************************************************************************/
 
 
 
-int eFichaje_getIdFichaje(eFichaje* this)
+int eColor_getIdColor(eColor* this)
 {
-    return this->idFichaje;
+    return this->idColor;
 }
 
-int eFichaje_getIdEmpleado(eFichaje* this)
+int eColor_getIdComponente(eColor* this)
 {
-    return this->idEmpleado;
+    return this->idComponente;
 }
 
-int eFichaje_getHora(eFichaje* this)
+int eColor_getCantidad(eColor* this)
 {
-    return this->hora;
+    return this->cantidad;
 }
 
-int eFichaje_getMinutos(eFichaje* this)
+char * eColor_getNombre(eColor* this)
 {
-    return this->minutos;
+    return this->nombre;
 }
 
-int eFichaje_getDia(eFichaje* this)
-{
-    return this->dia;
-}
-
-int eFichaje_getMes(eFichaje* this)
-{
-    return this->mes;
-}
-
-int eFichaje_getAnio(eFichaje* this)
-{
-    return this->anio;
-}
-
-char * eFichaje_getIngresoEgreso(eFichaje* this)
-{
-    return this->ingresoEgreso;
-}
 
 int employee_sortByName(void* thisA,void* thisB)
 {
     int retorno = 0;
     char nameA[50];
     char nameB[50];
-    Employee* punteroA;
-    Employee* punteroB;
+    eComponente* punteroA;
+    eComponente* punteroB;
     punteroA = thisA;
     punteroB = thisB;
     if (punteroA != NULL && punteroB != NULL){
-        strcpy(nameA,employee_getApellido(thisA));
-        strcpy(nameB,employee_getApellido(thisB));
+        strcpy(nameA,eComponente_getNombre(thisA));
+        strcpy(nameB,eComponente_getNombre(thisB));
 
         if(strcmp(nameA,nameB)>0){
             retorno = 1;
         }
         else if(strcmp(nameA,nameB)< 0){
-            retorno = -1;
+            retorno = 0;
         }
     }
     return retorno;
 }
-
-
